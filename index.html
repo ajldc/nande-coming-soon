@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es-PY">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Ñande — la red que somos. Próximamente en Paraguay." />
+<meta name="theme-color" content="#050D1F" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Ñande — Próximamente" />
+<meta property="og:description" content="La red que somos. Próximamente en Paraguay." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://nande.com.py" />
+<meta property="og:locale" content="es_PY" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ñande — Próximamente" />
+<meta name="twitter:description" content="La red que somos." />
+
+<title>Ñande — Próximamente</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Favicon SVG inline -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23D946EF'/%3E%3Cstop offset='100%25' stop-color='%236B1FD9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23050D1F'/%3E%3Ctext x='50' y='72' font-family='system-ui,sans-serif' font-size='64' font-weight='700' text-anchor='middle' fill='url(%23g)'%3E%C3%91%3C/text%3E%3C/svg%3E" />
+
+<style>
+  :root{
+    --navy-deep: #050D1F;
+    --navy:      #0A1A33;
+    --navy-ink:  #0F2446;
+    --magenta:   #C026FF;
+    --magenta-h: #D946EF;
+    --violet:    #6B1FD9;
+    --white:     #FFFFFF;
+    --off:       #E8ECF4;
+    --mute:      #8895AE;
+    --line:      rgba(255,255,255,.08);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--navy-deep);
+    color:var(--off);
+    font-family:'Manrope', system-ui, sans-serif;
+    font-weight:400;
+    line-height:1.5;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex; flex-direction:column;
+    position:relative;
+  }
+
+  /* ===== AMBIENTE DE FUNDO ===== */
+  .bg-grid{
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 72px 72px;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
+  }
+
+  .bg-glow-1, .bg-glow-2{
+    position:fixed; pointer-events:none; z-index:0;
+    border-radius:50%;
+    filter: blur(80px);
+    opacity:.6;
+  }
+  .bg-glow-1{
+    width:min(720px, 70vw); height:min(720px, 70vw);
+    left:-15%; top:30%;
+    background: radial-gradient(circle, rgba(192,38,255,.35), transparent 65%);
+    animation: float1 16s ease-in-out infinite;
+  }
+  .bg-glow-2{
+    width:min(640px, 60vw); height:min(640px, 60vw);
+    right:-15%; top:-10%;
+    background: radial-gradient(circle, rgba(107,31,217,.3), transparent 65%);
+    animation: float2 20s ease-in-out infinite;
+  }
+
+  @keyframes float1{
+    0%,100%{ transform: translate(0,0) scale(1) }
+    50%{ transform: translate(4%, -6%) scale(1.08) }
+  }
+  @keyframes float2{
+    0%,100%{ transform: translate(0,0) scale(1) }
+    50%{ transform: translate(-5%, 4%) scale(1.05) }
+  }
+
+  /* ===== ONDA DE PULSO (SVG DE FUNDO) ===== */
+  .bg-wave{
+    position:fixed;
+    left:0; right:0;
+    bottom:0;
+    width:100%;
+    height:40vh;
+    z-index:0;
+    pointer-events:none;
+    opacity:.7;
+    mask-image: linear-gradient(to top, #000 20%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, #000 20%, transparent 100%);
+  }
+  .bg-wave svg{ width:100%; height:100% }
+  .wave-path{
+    stroke-dasharray: 8 14;
+    animation: waveDash 30s linear infinite;
+  }
+  @keyframes waveDash{
+    to{ stroke-dashoffset: -440 }
+  }
+
+  /* ===== LAYOUT ===== */
+  .wrap{
+    position:relative;
+    z-index:1;
+    max-width:1100px;
+    width:100%;
+    margin:0 auto;
+    padding: 28px 28px 40px;
+    flex:1;
+    display:flex; flex-direction:column;
+  }
+  @media(max-width:560px){ .wrap{ padding:24px 22px 32px } }
+
+  /* ===== HEADER ===== */
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    animation: fadeDown .8s .1s both;
+  }
+  .logo-mark{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-weight:700;
+    font-size:26px;
+    color:var(--white);
+    letter-spacing:-.02em;
+    line-height:1;
+  }
+  .logo-mark .dot{
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--magenta-h);
+    box-shadow: 0 0 16px var(--magenta-h), 0 0 32px rgba(217,70,239,.4);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; transform:scale(1) }
+    50%{ opacity:.6; transform:scale(1.15) }
+  }
+
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px;
+    border:1px solid var(--line);
+    border-radius:999px;
+    background: rgba(255,255,255,.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--off);
+  }
+  .status-pill .sd{
+    width:6px; height:6px; border-radius:50%;
+    background:#4ADE80;
+    box-shadow: 0 0 8px #4ADE80;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+
+  /* ===== MAIN ===== */
+  main{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding: 8vh 0 6vh;
+    gap: 36px;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--magenta-h);
+    animation: fadeUp .8s .3s both;
+  }
+  .eyebrow::before{
+    content:'';
+    width:24px; height:1px;
+    background: var(--magenta-h);
+  }
+
+  h1{
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-weight:600;
+    font-size: clamp(56px, 13vw, 180px);
+    line-height:.92;
+    letter-spacing:-.04em;
+    color:var(--white);
+    animation: fadeUp 1s .45s both;
+  }
+  h1 .accent{
+    background: linear-gradient(135deg, var(--magenta-h), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display:inline-block;
+  }
+  h1 .tild-svg{
+    display:inline-block;
+    vertical-align:middle;
+    margin: 0 -.1em 0 -.05em;
+    width: clamp(70px, 16vw, 220px);
+    height:auto;
+  }
+
+  .tagline{
+    font-family:'Bricolage Grotesque', sans-serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight:400;
+    line-height:1.25;
+    letter-spacing:-.015em;
+    color:var(--white);
+    max-width: 720px;
+    animation: fadeUp 1s .65s both;
+  }
+  .tagline b{
+    font-weight:600;
+    background: linear-gradient(135deg, var(--magenta-h), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sub{
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: var(--off);
+    max-width: 560px;
+    line-height:1.6;
+    animation: fadeUp 1s .8s both;
+  }
+  .sub .muted{ color: var(--mute) }
+
+  /* ===== NEWSLETTER ===== */
+  .signup{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    max-width: 520px;
+    animation: fadeUp 1s .95s both;
+  }
+  .signup input{
+    flex:1;
+    min-width: 220px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--white);
+    font-family:'Manrope', sans-serif;
+    font-size: 15px;
+    transition: all .2s ease;
+    outline:none;
+  }
+  .signup input::placeholder{ color: var(--mute) }
+  .signup input:focus{
+    border-color: rgba(192,38,255,.4);
+    background: rgba(255,255,255,.06);
+    box-shadow: 0 0 0 4px rgba(192,38,255,.08);
+  }
+  .signup button{
+    padding: 16px 26px;
+    background: linear-gradient(135deg, var(--magenta), var(--violet));
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-family:'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing:.01em;
+    cursor: pointer;
+    transition: all .2s ease;
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 4px 20px rgba(192,38,255,.25);
+  }
+  .signup button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(192,38,255,.4);
+  }
+  .signup button:active{ transform: translateY(0) }
+  .signup button:disabled{
+    opacity:.6; cursor:wait; transform:none;
+  }
+
+  .signup-msg{
+    margin-top:12px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    color: #4ADE80;
+    min-height:18px;
+    animation: fadeUp .4s both;
+  }
+  .signup-msg.err{ color: #F87171 }
+
+  /* ===== FOOTER ===== */
+  footer{
+    position:relative;
+    z-index:1;
+    padding: 32px 28px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color: var(--mute);
+    animation: fadeIn 1s 1.2s both;
+  }
+  footer a{
+    color: var(--off);
+    text-decoration:none;
+    transition: color .2s;
+  }
+  footer a:hover{ color: var(--magenta-h) }
+  footer .socials{ display:flex; gap:20px; align-items:center }
+  @media(max-width:560px){
+    footer{ padding: 24px 22px; gap:14px }
+    footer .socials{ gap:16px }
+  }
+
+  /* ===== ANIMAÇÕES ===== */
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(24px) }
+    to  { opacity:1; transform: translateY(0) }
+  }
+  @keyframes fadeDown{
+    from{ opacity:0; transform: translateY(-12px) }
+    to  { opacity:1; transform: translateY(0) }
+  }
+  @keyframes fadeIn{
+    from{ opacity:0 }
+    to  { opacity:1 }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+    .bg-glow-1, .bg-glow-2, .wave-path, .logo-mark .dot, .status-pill .sd{ animation: none !important }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Ambiente -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow-2" aria-hidden="true"></div>
+
+  <div class="bg-wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#6B1FD9" stop-opacity="0"/>
+          <stop offset="30%" stop-color="#6B1FD9" stop-opacity=".6"/>
+          <stop offset="60%" stop-color="#C026FF" stop-opacity=".8"/>
+          <stop offset="100%" stop-color="#D946EF" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path class="wave-path"
+            d="M0,180 Q180,100 360,180 T720,180 T1080,180 T1440,180"
+            stroke="url(#waveGrad)"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"/>
+      <path class="wave-path"
+            d="M0,220 Q240,140 480,220 T960,220 T1440,220"
+            stroke="url(#waveGrad)"
+            stroke-width="1.5"
+            fill="none"
+            stroke-linecap="round"
+            opacity=".6"
+            style="animation-duration:45s"/>
+    </svg>
+  </div>
+
+  <div class="wrap">
+
+    <header>
+      <div class="logo-mark">
+        <span class="dot"></span>
+        <span>Ñande</span>
+      </div>
+      <span class="status-pill">
+        <span class="sd"></span>
+        En construcción
+      </span>
+    </header>
+
+    <main>
+      <span class="eyebrow">Próximamente · Paraguay</span>
+
+      <h1>
+        La red<br>
+        que <span class="accent">somos</span>.
+      </h1>
+
+      <p class="tagline">
+        En guaraní, <b>ñande</b> significa "nosotros" — pero un nosotros que te incluye.
+      </p>
+
+      <p class="sub">
+        Estamos construyendo una red hecha para el Paraguay. <span class="muted">Infraestructura seria, lenguaje claro, conexión sin exclusiones. Dejá tu mail y te avisamos cuando lleguemos a tu ciudad.</span>
+      </p>
+
+      <form class="signup" id="signupForm" novalidate>
+        <input type="email"
+               id="email"
+               name="email"
+               placeholder="tu@correo.com"
+               autocomplete="email"
+               required
+               aria-label="Correo electrónico">
+        <button type="submit" id="submitBtn">Avisame</button>
+      </form>
+      <div class="signup-msg" id="signupMsg" role="status" aria-live="polite"></div>
+    </main>
+
+    <!-- (o footer fica fora do .wrap, abaixo) -->
+  </div>
+
+  <footer>
+    <div>© 2026 Ñande · Asunción, Paraguay</div>
+    <div class="socials">
+      <a href="mailto:hola@nande.com.py">hola@nande.com.py</a>
+    </div>
+  </footer>
+
+<script>
+  // ===== Captura de email (armazenamento local temporário) =====
+  // Para produção: substituir o bloco abaixo por integração com
+  // Cloudflare Workers + KV, Mailchimp, ConvertKit ou similar.
+  (function(){
+    const form = document.getElementById('signupForm');
+    const input = document.getElementById('email');
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('signupMsg');
+
+    const isValidEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const email = input.value.trim();
+      msg.classList.remove('err');
+
+      if (!isValidEmail(email)){
+        msg.textContent = '✕ Revisá el correo, por favor.';
+        msg.classList.add('err');
+        return;
+      }
+
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Enviando…';
+
+      try {
+        // ======================================================
+        // PRODUÇÃO: descomentar e apontar para seu endpoint
+        // (Cloudflare Worker, Mailchimp API, ConvertKit, etc.)
+        // ======================================================
+        //
+        // const res = await fetch('/api/subscribe', {
+        //   method: 'POST',
+        //   headers: {'Content-Type': 'application/json'},
+        //   body: JSON.stringify({ email, source: 'coming-soon' })
+        // });
+        // if (!res.ok) throw new Error('fail');
+
+        await new Promise(r => setTimeout(r, 600)); // simula latência
+
+        msg.textContent = '✓ Listo. Te avisamos cuando lleguemos.';
+        input.value = '';
+      } catch (err) {
+        msg.textContent = '✕ No pudimos registrarte. Intentá de nuevo.';
+        msg.classList.add('err');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
