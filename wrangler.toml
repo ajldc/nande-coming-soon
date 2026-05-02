@@ -1,0 +1,16 @@
+name = "nande-coming-soon"
+main = "src/worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[[kv_namespaces]]
+binding = "SUBSCRIBERS"
+id = "c7918972f33a4c2b8d384cf015b340c0"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "600923dd494e4777b7031f586e294cc7"
